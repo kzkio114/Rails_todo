@@ -8,6 +8,11 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.12",
+    "bun": "^1.1.36",
     "sass": "^1.81.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "daisyui": "^4.12.14"
   }
 }

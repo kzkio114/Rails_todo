@@ -1,2 +1,3 @@
 js: bun run build --watch
-css: bun run build:css --watch
+scss: bun run build:css --watch
+css: bin/rails tailwindcss:watch
