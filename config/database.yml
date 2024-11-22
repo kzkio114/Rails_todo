@@ -4,7 +4,7 @@ default: &default
   pool: 5
   username: <%= ENV['MYSQL_USER'] %>
   password: <%= ENV['MYSQL_PASSWORD'] %>
-  host: db  # docker-compose.ymlのdbサービス名
+  host: db
   port: 3306
 
 development:
