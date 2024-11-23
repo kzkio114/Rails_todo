@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
+  get "tasks/index"
+  get "tasks/show"
+  get "tasks/new"
+  get "tasks/edit"
+  get "tasks/create"
+  get "tasks/update"
+  get "tasks/destroy"
   # get "tops/index"
   root "tops#index"
-  post "todo" => "tops/todo" , as: :todo
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
