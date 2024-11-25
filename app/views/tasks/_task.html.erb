@@ -1,5 +1,6 @@
 <li id="task_<%= task.id %>">
   <%= task.name %> - <%= task.due_date %>
+  <%= button_to "詳細", task_path(task), data: { turbo_frame: "task_detail" } %>
   <%= link_to "詳細", task_path(task), data: { turbo_frame: "task_detail" } %>
   <%= button_to "編集", task_path(task), data: { turbo_frame: "task_form", turbo_method: :get } %>
   <%= button_to "削除", task_path(task), method: :delete, data: { turbo_confirm: "削除しますか？" } %>

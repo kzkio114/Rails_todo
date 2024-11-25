@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :tasks, only: [:show, :create, :update, :destroy]
-  # get "tops/index"
+  post "tasks/:id" => "tasks#update"
+  post "tasks/:id/complete" => "tasks#complete"
   root "tops#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

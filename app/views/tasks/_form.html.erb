@@ -1,4 +1,4 @@
-<%= form_with model: task, url: tasks_path, data: { turbo_frame: "task_form" } do |form| %>
+<%= form_with model: @task, url: @task.new_record? ? tasks_path : task_path(@task), method: @task.new_record? ? :post : :patch, data: { turbo_frame: "task_form" } do |form| %>
   <div>
     <%= form.label :name, "タスク名" %>
     <%= form.text_field :name %>

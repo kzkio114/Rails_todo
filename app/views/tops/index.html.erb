@@ -1,25 +1,23 @@
-<div>
-  <h1 class="font-bold text-4xl">Tops#index</h1>
-  <p>Find me in app/views/tops/index.html.erb</p>
-  <p>Find me in app/views/tops/index.html.erb</p>
-</div>
+<div class="p-6 bg-gray-50">
+  <h1 class="font-bold text-4xl text-blue-600">Tops#index</h1>
+  <h1 class="font-semibold text-2xl text-gray-800 mt-6">タスク管理</h1>
 
-<h1>タスク管理</h1>
-
-<div id="tasks_list">
-  <%= turbo_frame_tag "tasks_list" do %>
-    <%= render @tasks %>
-  <% end %>
-</div>
-
-<div id="task_form">
+<div id="task_form" class="mt-6 p-4 bg-white shadow-md rounded-lg">
   <%= turbo_frame_tag "task_form" do %>
     <%= render "tasks/form", task: Task.new %>
   <% end %>
 </div>
+</div>
 
-<div id="task_detail">
+<div id="task_detail" class="mt-6 p-4 bg-gray-100 shadow-inner rounded-lg">
   <%= turbo_frame_tag "task_detail" do %>
-    <p>詳細を選択してください。</p>
+    <p class="text-gray-500">詳細を選択してください。</p>
+  <% end %>
+</div>
+
+
+<div id="tasks_list" class="mt-4">
+  <%= turbo_frame_tag "tasks_list" do %>
+    <%= render @tasks %>
   <% end %>
 </div>

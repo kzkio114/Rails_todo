@@ -7,7 +7,9 @@ class TasksController < ApplicationController
           turbo_stream.replace("task_detail", partial: "tasks/detail", locals: { task: @task })
         ]
       end
-      format.html
+      format.html do
+        render :show, locals: { task: @task }
+      end
     end
   end
 
