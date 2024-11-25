@@ -1,11 +1,5 @@
 Rails.application.routes.draw do
-  get "tasks/index"
-  get "tasks/show"
-  get "tasks/new"
-  get "tasks/edit"
-  get "tasks/create"
-  get "tasks/update"
-  get "tasks/destroy"
+  resources :tasks, only: [:show, :create, :update, :destroy]
   # get "tops/index"
   root "tops#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

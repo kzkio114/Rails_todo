@@ -1,0 +1,19 @@
+<%= form_with model: task, url: tasks_path, data: { turbo_frame: "task_form" } do |form| %>
+  <div>
+    <%= form.label :name, "タスク名" %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :details, "詳細" %>
+    <%= form.text_area :details %>
+  </div>
+  <div>
+    <%= form.label :due_date, "締切日" %>
+    <%= form.date_field :due_date %>
+  </div>
+  <div>
+    <%= form.label :completed, "完了" %>
+    <%= form.check_box :completed %>
+  </div>
+  <%= form.submit "保存" %>
+<% end %>
