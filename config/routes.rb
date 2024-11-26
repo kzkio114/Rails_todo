@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  resources :tasks, only: [:show, :create, :update, :destroy]
-  post "tasks/:id" => "tasks#update"
-  post "tasks/:id/complete" => "tasks#complete"
+  resources :tasks, only: [:show, :index, :create, :update, :destroy] do
+    member do
+      get :show, defaults: { format: :turbo_stream }
+    end
+  end
   root "tops#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
