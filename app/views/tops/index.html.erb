@@ -1,39 +1,5 @@
 <h1 class="font-bold text-4xl text-blue-600">タスク管理アプリ</h1>
 
-<div class="p-6 bg-gray-50">
-  <h1 class="font-semibold text-2xl text-gray-800 mt-6">タスク作成画面</h1>
-
-<div id="task_form" class="mt-6 p-4 bg-white shadow-md rounded-lg">
-  <%= turbo_frame_tag "task_form" do %>
-    <%= render "tasks/form", task: Task.new %>
-  <% end %>
-</div>
-</div>
-
-<div id="tasks_list" class="mt-4">
-  <%= turbo_frame_tag "tasks_list" do %>
-    <%= render @tasks %>
-  <% end %>
-</div>
-
-
-<div id="task_list">
-  <%= turbo_frame_tag "tasks_list" do %>
-    <ul>
-      <% @tasks.each do |task| %>
-        <li id="task_<%= task.id %>">
-          <%= task.name %>
-          
-
-          <%= link_to "詳細", task_path(task, format: :turbo_stream), data: { turbo_frame: "task_detail" } %>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
-</div>
-
-<div id="task_detail">
-  <%= turbo_frame_tag "task_detail" do %>
-    <p>ここに詳細が表示されます。</p>
-  <% end %>
+<%= button_to "インデックスに移動", tasks_path(format: :turbo_stream), method: :get, data: { turbo_frame: "task_list" } %>
+<%= link_to "index", tasks_path %>
 </div>

@@ -1,6 +1,10 @@
-<turbo-frame id="task_detail">
-  <h2><%= task.name %></h2>
-  <p><%= task.details %></p>
-  <p>締切日: <%= task.due_date %></p>
-  <p>完了: <%= task.completed ? "はい" : "いいえ" %></p>
-</turbo-frame>
+<%= turbo_frame_tag "task_detail" do %>
+  <div>
+    <h2><%= task.name %></h2>
+    <p><%= task.details %></p>
+    <p>締切日: <%= task.due_date %></p>
+    <p>完了: <%= task.completed ? "はい" : "いいえ" %></p>
+    <%= button_to "編集", task_path(task), method: :patch, data: { turbo_frame: "task_detail" } %>
+    <%= button_to "削除", task_path(task), method: :delete, data: { turbo_confirm: "削除しますか？" } %>
+  </div>
+<% end %>

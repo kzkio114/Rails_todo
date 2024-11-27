@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
-  resources :tasks, only: [:show, :index, :create, :update, :destroy] do
-    member do
-      get :show, defaults: { format: :turbo_stream }
-    end
-  end
+  resources :tasks, only: [:index, :show, :create, :update, :destroy]
   root "tops#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

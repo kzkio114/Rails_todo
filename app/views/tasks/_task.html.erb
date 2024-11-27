@@ -1,10 +1,4 @@
-<li id="task_<%= task.id %>">
-  <%= task.name %> - <%= task.due_date %>
-  <%= link_to "詳細", task_path(task, format: :turbo_stream), data: { turbo_frame: "task_detail" } %>
-  <%= button_to "編集", task_path(task), method: :patch, data: { turbo_frame: "task_detail" } %>
-  <%= button_to "削除", task_path(task), method: :delete, data: { turbo_confirm: "削除しますか？" } %>
-  <%= button_to "詳細", task_path(task, format: :turbo_stream), data: { turbo_frame: "task_detail" } %>
+<li id="task_<%= @task.id %>">
+  <%= @task.name %> - <%= @task.due_date %>
+  <%= button_to "詳細", task_path(@tasks, format: :turbo_stream), method: :get, data: { turbo_frame: "task_detail" } %>
 </li>
-
-
-
