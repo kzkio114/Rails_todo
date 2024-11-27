@@ -1,3 +1,20 @@
-<%= turbo_stream.replace "tasks_list" do %>
-  <%= render partial: "tasks/task", collection: @tasks, as: :task %>
+<%= turbo_stream.replace "task_list" do %>
+  <h2 class="font-semibold text-2xl text-gray-800 mt-6">タスク管理</h2>
+
+    <!-- フォーム -->
+  <div id="task_form" class="mt-6 p-4 bg-gray-50 border border-gray-300 rounded-lg">
+    <%= turbo_frame_tag "tasks_form" do %>
+      <%= render partial: "tasks/form", locals: { task: Task.new } %>
+    <% end %>
+  </div>
+
+
+  <!-- タスク一覧 -->
+  <div id="tasks_list" class="mt-4">
+    <%= turbo_frame_tag "tasks_list" do %>
+      <ul>
+        <%= render partial: "tasks/task", collection: @tasks, as: :task %>
+      </ul>
+    <% end %>
+  </div>
 <% end %>
