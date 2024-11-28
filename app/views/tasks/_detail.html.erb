@@ -4,7 +4,6 @@
     <p><%= task.details %></p>
     <p>締切日: <%= task.due_date %></p>
     <p>完了: <%= task.completed ? "はい" : "いいえ" %></p>
-    <%= button_to "編集", task_path(task), method: :patch, data: { turbo_frame: "task_detail" } %>
-    <%= button_to "削除", task_path(task), method: :delete, data: { turbo_confirm: "削除しますか？" } %>
+    <%= button_to "削除", task_path(task), method: :delete, data: { turbo_confirm: "削除しますか？", turbo_frame: "task_list" }, class: "text-red-500 hover:text-red-700" %>
   </div>
 <% end %>
