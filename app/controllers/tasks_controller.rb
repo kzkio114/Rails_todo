@@ -13,6 +13,10 @@ class TasksController < ApplicationController
     @task.save
   end
 
+  def edit
+    @task = Task.find(params[:id])
+  end
+
   def update
     @task = Task.find(params[:id])
     @task.update(task_params)
@@ -26,6 +30,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.expect(task: [:name, :details, :due_date, :completed])[:task]
+    params.expect(task: [:name, :details, :due_date, :completed])[:task] || {}
   end
 end

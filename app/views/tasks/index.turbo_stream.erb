@@ -7,13 +7,11 @@
     <% end %>
   </div>
 
-
   <div id="task_detail_<%= @task.id %>" class="p-4 border rounded bg-gray-50">
   <p>タスクの詳細はここに表示されます。</p>
     <%= turbo_frame_tag "task_detail" do %>
     <% end %>
   </div>
-
 
   <div id="tasks_list">
     <%= turbo_frame_tag "tasks_list" do %>

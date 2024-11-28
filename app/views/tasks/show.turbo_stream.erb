@@ -1,10 +1,5 @@
 <%= turbo_stream.replace "task_detail" do %>
   <div id="task_detail_<%= @task.id %>">
-    <h3 class="text-xl font-bold mb-2">タスク詳細</h3>
-    <p><strong>タスク名:</strong> <%= @task.name %></p>
-    <p><strong>詳細:</strong> <%= @task.details %></p>
-    <p><strong>締切日:</strong> <%= @task.due_date %></p>
-    <p><strong>完了:</strong> <%= @task.completed ? "はい" : "いいえ" %></p>
-    <%= button_to "編集", task_path(@task), method: :patch, data: { turbo_frame: "task_detail" } %>
+    <%= render partial: "tasks/detail", locals: { task: @task } %>
   </div>
 <% end %>
