@@ -7,13 +7,15 @@
     <% end %>
   </div>
 
-<p>タスクの詳細はここに表示されます。</p>
-  <div id="task_detail">
+
+  <div id="task_detail_<%= @task.id %>" class="p-4 border rounded bg-gray-50">
+  <p>タスクの詳細はここに表示されます。</p>
     <%= turbo_frame_tag "task_detail" do %>
-   <% end %>
+    <% end %>
   </div>
 
-  <div id="tasks_list" class="mt-4 bg-gray-50 border">
+
+  <div id="tasks_list">
     <%= turbo_frame_tag "tasks_list" do %>
       <ul>
         <%= render partial: "tasks/task", collection: @tasks, as: :task %>
