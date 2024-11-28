@@ -1,7 +1,9 @@
-<%= turbo_stream.append "tasks_list" do %>
-  <%= render partial: "tasks/task", locals: { task: @task } %>
+<%= turbo_stream.replace "task_form" do %>
+<div id="task_form" class="mt-6 p-4 bg-gray-50 border border-gray-300 rounded-lg">
+  <%= render partial: "tasks/form", locals: { task: Task.new } %>
+</div>
 <% end %>
 
-<%= turbo_stream.replace "task_form" do %>
-  <%= render partial: "tasks/form", locals: { task: Task.new } %>
+<%= turbo_stream.append "tasks_list" do %>
+  <%= render partial: "tasks/task", locals: { task: @task } %>
 <% end %>
