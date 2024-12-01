@@ -1,19 +1,19 @@
-<%= turbo_stream.replace "task_list" do %>
-  <h2 class="font-semibold text-2xl text-gray-800 mt-6">タスク管理</h2>
+<%= turbo_frame_tag "task_list", class: "flex flex-row space-x-4" do %>
+  <div class="flex-1">
+    <h2 class="font-semibold text-2xl text-gray-800 mt-6">タスク管理</h2>
 
-  <div id="task_form" class="mt-6 p-4 border-gray-300 rounded-lg">
     <%= turbo_frame_tag "task_form" do %>
       <%= render partial: "tasks/form", locals: { task: Task.new } %>
     <% end %>
   </div>
 
-  <div id="task_detail_<%= @task.id %>" class="p-4 border rounded bg-gray-50">
-  <p>タスクの詳細はここに表示されます。</p>
+  <div class="flex-1 p-4 border rounded bg-gray-50">
+    <p>タスクの詳細はここに表示されます。</p>
     <%= turbo_frame_tag "task_detail" do %>
     <% end %>
   </div>
 
-  <div id="tasks_list">
+  <div class="flex-1">
     <%= turbo_frame_tag "tasks_list" do %>
       <ul>
         <%= render partial: "tasks/task", collection: @tasks, as: :task %>

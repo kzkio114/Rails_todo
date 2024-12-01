@@ -1,5 +1,0 @@
-<%= turbo_stream.replace "task_detail" do %>
-  <div id="task_detail_<%= @task.id %>">
-    <%= render partial: "tasks/detail", locals: { task: @task } %>
-  </div>
-<% end %>
