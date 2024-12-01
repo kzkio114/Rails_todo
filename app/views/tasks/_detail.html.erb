@@ -1,3 +1,7 @@
+<%= turbo_stream.replace "task_form" do %>
+  <%= render partial: "tasks/form", locals: { task: Task.new } %>
+<% end %>
+
 <div id="task_detail_<%= @task.id %>">
     <h3 class="text-xl font-bold mb-2">タスク詳細</h3>
     <p><strong>タスク名:</strong> <%= @task.name %></p>
@@ -6,12 +10,6 @@
     <p><strong>完了:</strong> <%= @task.completed ? "はい" : "いいえ" %></p>
 </div>
 
-<%= button_to "編集", edit_task_path(@task), method: :get, data: { turbo_frame: "task_form" } %>
-<%= button_to "編集", edit_task_path(@task), method: :patch, data: { turbo_frame: "task_form" } %>
-
-  <div id="task_form" class="mt-6 p-4 border-gray-300 rounded-lg">
-  <div>
-
-  <%= turbo_frame_tag "task_edit_form" do %>
-      <%= render partial: "tasks/form", locals: { task: @task } %>
-    <% end %>
+<div id="task_form">
+<%= button_to "戻り", task_path(@task, format: :turbo_stream), method: :get, data: { turbo_frame: "task_list" }, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+</div>
