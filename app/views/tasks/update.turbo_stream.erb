@@ -1,17 +1,7 @@
-<%= turbo_stream.replace "task_#{@task.id}" do %>
-  <%= render partial: "tasks/task", locals: { task: @task } %>
-<% end %>
-
-<%= turbo_stream.replace "task_form" do %>
+<%= turbo_stream.replace dom_id(@task, "form") do %>
   <%= render partial: "tasks/form", locals: { task: @task } %>
 <% end %>
 
-<%= turbo_stream.replace "task_detail_#{@task.id}" do %>
-  <div id="task_detail_<%= @task.id %>">
-    <h3 class="text-xl font-bold mb-2">タスク詳細</h3>
-    <p><strong>タスク名:</strong> <%= @task.name %></p>
-    <p><strong>詳細:</strong> <%= @task.details %></p>
-    <p><strong>締切日:</strong> <%= @task.due_date %></p>
-    <p><strong>完了:</strong> <%= @task.completed ? "はい" : "いいえ" %></p>
-  </div>
+<%= turbo_stream.replace dom_id(@task) do %>
+  <%= render partial: "tasks/task", locals: { task: @task } %>
 <% end %>

@@ -1,11 +1,10 @@
-<%= turbo_frame_tag "task_list", class: "flex flex-row space-x-4" do %>
+<%= turbo_frame_tag "task_all", class: "flex flex-row space-x-4" do %>
   <div class="flex-1">
     <h2 class="font-semibold text-2xl text-gray-800 mt-6">タスク管理</h2>
 
-    <%= turbo_frame_tag "task_form" do %>
+    <%= turbo_frame_tag "task_form_new" do %>
       <%= render partial: "tasks/form", locals: { task: Task.new } %>
     <% end %>
-  </div>
 
   <div class="flex-1 p-4 border rounded bg-gray-50">
     <p>タスクの詳細はここに表示されます。</p>

@@ -1,9 +1,9 @@
-<li id="task_<%= task.id %>">
+<li id="<%= dom_id(task) %>">
   <%= task.name %> - <%= task.due_date %>
   <% if task.persisted? %>
     <%= link_to "詳細", task_path(task), data: { turbo_frame: "task_detail" } %>
     <%= button_to "削除", task_path(task), method: :delete,
-        data: { turbo_confirm: "削除しますか？", turbo_frame: "_top" },
+        data: { turbo_confirm: "削除してよろしいですか？" },
         class: "text-red-500 hover:text-red-700" %>
   <% else %>
     <p class="text-red-500">タスクが保存されていません。</p>
