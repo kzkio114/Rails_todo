@@ -1,4 +1,4 @@
-<turbo-frame id="task_all">
+<%= turbo_frame_tag "task_all" do %>
   <div class="flex-1">
     <h2 class="font-semibold text-2xl text-gray-800 mt-6">タスク管理</h2>
 
@@ -10,8 +10,7 @@
 
   <div class="flex-1 p-4 border rounded bg-gray-50">
     <p>タスクの詳細はここに表示されます。</p>
-    <%= turbo_frame_tag "task_detail" do %>
-    <% end %>
+    <%= render partial: "tasks/detail", locals: { task: @task } %>
   </div>
 
   <div id="tasks_list">
@@ -19,4 +18,4 @@
       <%= render partial: "tasks/task", locals: { task: task } %>
   <% end %>
 </div>
-</turbo-frame>
+<% end %>
