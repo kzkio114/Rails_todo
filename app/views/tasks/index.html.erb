@@ -1,22 +1,28 @@
-<turbo-frame id="task_all">
-  <div class="flex-1">
-    <h2 class="font-semibold text-2xl text-gray-800 mt-6">タスク管理</h2>
+<%= turbo_frame_tag "task_all" do %>
+  <div class="flex flex-row space-x-6">
+    <div class="flex-1">
+      <h2 class="font-semibold text-2xl text-gray-800 mt-6">タスク入力フォーム</h2>
 
-    <div id="task_form_new">
-    <%= turbo_frame_tag "task_form_new" do %>
-      <%= render partial: "tasks/new_form", locals: { task: Task.new } %>
-    <% end %>
+      <div id="task_form_new">
+        <%= turbo_frame_tag "task_form_new" do %>
+          <%= render partial: "tasks/new_form", locals: { task: Task.new } %>
+        <% end %>
+      </div>
     </div>
 
-  <div class="flex-1 p-4 border rounded bg-gray-50">
-    <p>タスクの詳細はここに表示されます。</p>
-    <%= turbo_frame_tag "task_detail" do %>
-    <% end %>
-  </div>
+    <div class="flex-1 min-w-80">
+      <h2 class="font-semibold text-2xl text-gray-800 mt-6">タスク詳細</h2>
+        <div class="p-5 border rounded bg-gray-50 mt-4">
+          <p>タスクの詳細はここに表示されます。</p>
+          <%= render partial: "tasks/detail", locals: { task: @task } %>
+        </div>
+    </div>
 
-  <div id="tasks_list">
-  <% @tasks.each do |task| %>
-      <%= render partial: "tasks/task", locals: { task: task } %>
-  <% end %>
-</div>
-</turbo-frame>
+    <div id="tasks_list" class="flex-1 min-w-max space-y-4">
+      <h2 class="font-semibold text-2xl text-gray-800 mt-6">タスク一覧</h2>
+      <% @tasks.each do |task| %>
+        <%= render partial: "tasks/task", locals: { task: task } %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

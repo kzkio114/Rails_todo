@@ -1,5 +1,5 @@
 <%= turbo_stream.remove dom_id(@task) %>
 
 <%= turbo_stream.replace "task_detail" do %>
-  <p>タスクが選択されていません。</p>
+  <%= render partial: "tasks/detail", locals: { task: @task } %>
 <% end %>
