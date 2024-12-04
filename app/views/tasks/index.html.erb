@@ -10,12 +10,16 @@
       </div>
     </div>
 
-    <div class="flex-1 p-4 border rounded bg-gray-50">
-      <p>タスクの詳細はここに表示されます。</p>
-      <%= render partial: "tasks/detail", locals: { task: @task } %>
+    <div class="flex-1 min-w-80">
+      <h2 class="font-semibold text-2xl text-gray-800 mt-6">タスク詳細</h2>
+        <div class="p-5 border rounded bg-gray-50 mt-4">
+          <p>タスクの詳細はここに表示されます。</p>
+          <%= render partial: "tasks/detail", locals: { task: @task } %>
+        </div>
     </div>
 
-    <div id="tasks_list" class="flex-1">
+    <div id="tasks_list" class="flex-1 min-w-max space-y-4">
+      <h2 class="font-semibold text-2xl text-gray-800 mt-6">タスク一覧</h2>
       <% @tasks.each do |task| %>
         <%= render partial: "tasks/task", locals: { task: task } %>
       <% end %>

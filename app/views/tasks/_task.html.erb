@@ -1,11 +1,18 @@
-<li id="<%= dom_id(task) %>">
-  <%= task.name %> - <%= task.due_date %>
-  <% if task.persisted? %>
-    <%= link_to "詳細", task_path(task), data: { turbo_frame: "task_detail" } %>
-    <%= button_to "削除", task, method: :delete,
-        data: { turbo_confirm: "削除してよろしいですか？" , turbo_frame: "task_detail" },
-        class: "text-red-500 hover:text-red-700" %>
-  <% else %>
-    <p class="text-red-500">タスクが保存されていません。</p>
-  <% end %>
+<li id="<%= dom_id(task) %>" class="flex space-x-4 justify-between items-center p-4 border rounded shadow-sm bg-gray-50">
+  <div>
+    <span class="font-semibold"><%= task.name %></span>
+    <span class="text-gray-500">- <%= task.due_date %></span>
+  </div>
+
+  <div class="flex space-x-4">
+    <% if task.persisted? %>
+      <%= link_to "詳細", task_path(task), data: { turbo_frame: "task_detail" },
+          class: "text-blue-500 hover:text-blue-700" %>
+      <%= button_to "削除", task, method: :delete,
+          data: { turbo_confirm: "削除してよろしいですか？", turbo_frame: "task_detail" },
+          class: "text-red-500 hover:text-red-700" %>
+    <% else %>
+      <p class="text-red-500">タスクが保存されていません。</p>
+    <% end %>
+  </div>
 </li>
