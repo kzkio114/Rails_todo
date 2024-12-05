@@ -2,7 +2,7 @@
     <h2 class="font-semibold text-2xl text-gray-800 mt-6">タスク編集フォーム</h2>
     <div id="task_form_edit">
         <%= turbo_frame_tag "task_form_edit" do %>
-        <%= render partial: "tasks/edit_form", locals: { task: @task } %>
+          <%= render partial: "tasks/edit_form", locals: { task: @task } %>
         <% end %>
     </div>
 <% end %>
