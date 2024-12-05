@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :tasks, only: [ :index, :show, :create, :update, :destroy ]
+  resources :tasks, only: [ :index, :edit, :show, :create, :update, :destroy ]
   root "tops#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

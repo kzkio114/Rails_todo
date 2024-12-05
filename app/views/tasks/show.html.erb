@@ -1,10 +1,14 @@
 <%= turbo_frame_tag "task_detail" do %>
   <% if @task.present? %>
-    <h3>タスク詳細</h3>
-    <p><strong>タスク名:</strong> <%= @task.name %></p>
-    <p><strong>詳細:</strong> <%= @task.details %></p>
-    <p><strong>締切日:</strong> <%= @task.due_date %></p>
-    <p><strong>完了:</strong> <%= @task.completed ? "はい" : "いいえ" %></p>
+      <h3>タスク詳細</h3>
+      <p><strong>タスク名:</strong> <%= @task.name %></p>
+      <p><strong>詳細:</strong> <%= @task.details %></p>
+      <p><strong>締切日:</strong> <%= @task.due_date %></p>
+      <p><strong>完了:</strong> <%= @task.completed ? "はい" : "いいえ" %></p>
+      <%= link_to "編集", edit_task_path(@task), data: { turbo_frame: "task_edit" },
+      class: "text-blue-500 hover:text-blue-700" %>
+    <%= turbo_frame_tag "task_edit" do %>
+    <% end %>
   <% else %>
     <p>タスクが選択されていません。</p>
   <% end %>
