@@ -20,8 +20,7 @@
         </div>
     </div>
 
-    <%= turbo_stream_from "tasks_list" %>
-
+    <%= turbo_stream_from "tasks_list" %> <!-- 追記　-->
     <div id="tasks_list" class="flex-1 min-w-max space-y-4">
       <h2 class="font-semibold text-2xl text-gray-800 mt-6">タスク一覧</h2>
       <% @tasks.each do |task| %>

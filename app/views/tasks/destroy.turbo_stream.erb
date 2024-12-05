@@ -1,5 +1,4 @@
 <%= turbo_stream.remove dom_id(@task) %>
-<%= turbo_stream.remove @task %>
 
 <%= turbo_stream.replace "task_detail" do %>
   <%= turbo_frame_tag "task_detail" do %>
