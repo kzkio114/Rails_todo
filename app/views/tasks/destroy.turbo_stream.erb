@@ -1,11 +1,5 @@
 <%= turbo_stream.remove dom_id(@task) %>
 
 <%= turbo_stream.replace "task_detail" do %>
-  <%= turbo_frame_tag "task_detail" do %>
-    <p>
-      <strong>
-        <%= @task&.name&.strip.presence || "不明なタスク" %>
-      </strong> が削除されました。
-    </p>
-  <% end %>
+  <%= render partial: "tasks/detail_deleted", locals: { task: @task } %>
 <% end %>
