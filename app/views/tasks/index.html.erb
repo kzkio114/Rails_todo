@@ -14,6 +14,7 @@
       <h2 class="font-semibold text-2xl text-gray-800 mt-6">タスク詳細</h2>
         <div class="p-5 border rounded bg-gray-50 mt-4">
           <p>タスクの詳細はここに表示されます。</p>
+            <%= turbo_stream_from "task_detail" %> <!-- 追記　-->
             <%= turbo_frame_tag "task_detail" do %>
               <p>タスクが選択されていません。</p>
             <% end %>
