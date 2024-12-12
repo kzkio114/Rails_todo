@@ -1,5 +1,0 @@
-<%= turbo_stream.remove dom_id(@task) %>
-
-<%= turbo_stream.replace "task_detail" do %>
-  <%= render partial: "tasks/detail_deleted", locals: { task: @task } %>
-<% end %>
