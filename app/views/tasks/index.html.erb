@@ -22,22 +22,13 @@
     </div>
 
     <div class="flex-1 min-w-80">
-      <%= turbo_stream_from "tasks_list" %> <!-- 追記　-->
+      <%= turbo_stream_from "tasks_list" %> <!-- 追記 -->
       <div id="tasks_list" class="flex-1 min-w-max space-y-4">
         <h2 class="font-semibold text-2xl text-gray-800 mt-6">タスク一覧</h2>
-        <% @tasks.each do |task| %>
-          <%= render partial: "tasks/task", locals: { task: task } %>
-        <% end %>
-      </div>
-    </div>
-
-    <!-- 追記 morph用 -->
-    <div class="flex-1 min-w-80">
-      <h2 class="font-semibold text-2xl text-gray-800 mt-6">プレビューエリア</h2>
-      <div class="p-5 border rounded bg-gray-50 mt-4">
-        <%= turbo_stream_from "task_preview" %>
-        <div id="task_preview">
-          <p>タスクのプレビューはここに表示されます。</p>
+        <div class="overflow-y-auto h-64 border border-gray-200 rounded-md p-4">
+          <% @tasks.each do |task| %>
+            <%= render partial: "tasks/task", locals: { task: task } %>
+          <% end %>
         </div>
       </div>
     </div>
