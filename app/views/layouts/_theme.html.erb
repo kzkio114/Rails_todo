@@ -1,7 +1,0 @@
-<div class="flex items-center justify-center p-4">
-  <p>現在のテーマ: <%= dark_mode ? 'ダークモード' : 'ライトモード' %></p>
-  <%= button_to (dark_mode ? 'ライトモードに切り替える' : 'ダークモードに切り替える'),
-               toggle_theme_path,
-               method: :post,
-               class: "ml-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
-</div>

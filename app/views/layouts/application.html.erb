@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html id="html-container" class="<%= session[:dark_mode] ? 'dark' : '' %>">
+<html class="dark">
   <head>
     <title><%= content_for(:title) || "App" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <%# turbo morphとpreserveの設定 % >
+    <%# turbo morphとpreserveの設定 %>
     <meta name="turbo-refresh-method" content="morph">
     <meta name="turbo-refresh-scroll" content="preserve"> <%#%>
     <%= csrf_meta_tags %>
@@ -29,7 +29,6 @@
 
   <body>
     <main class="container mx-auto mt-28 px-5 flex">
-      <%= button_to 'Toggle Theme', toggle_theme_path, method: :post, data: { turbo_frame: "html-container" } %>
       <%= yield %>
     </main>
   </body>
