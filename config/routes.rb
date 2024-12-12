@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :tasks, only: [ :index, :edit, :show, :create, :update, :destroy ]
+  post "toggle_theme" => "tops#toggle_theme"
   root "tops#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
