@@ -1,0 +1,8 @@
+<%= turbo_frame_tag "task_new" do %>
+    <h2 class="font-semibold text-2xl text-gray-800 mt-6">タスク編集フォーム</h2>
+    <div id="task_form_new">
+        <%= turbo_frame_tag "task_form_new" do %>
+          <%= render partial: "tasks/new_form", locals: { task: @task } %>
+        <% end %>
+    </div>
+<% end %>

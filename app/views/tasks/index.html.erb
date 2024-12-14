@@ -5,7 +5,7 @@
 
       <div id="task_form_new">
         <%= turbo_frame_tag "task_form_new" do %>
-          <%= render partial: "tasks/new_form", locals: { task: Task.new } %>
+          <%= link_to "新規タスク作成", new_task_path, data: { turbo_frame: "task_new" }, class: "text-blue-500 hover:text-blue-700" %>
         <% end %>
       </div>
     </div>
