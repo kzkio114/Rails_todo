@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get 'toggle_theme', to: 'themes#toggle', as: :toggle_theme
-
+  
+  post 'toggle_theme', to: 'themes#toggle', as: :toggle_theme
 
   resources :tasks, only: [ :index, :edit, :show, :new, :create, :update, :destroy ]
   root "tops#index"
