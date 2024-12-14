@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html class="dark">
+<html>
   <head>
     <title><%= content_for(:title) || "App" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <%# turbo morphとpreserveの設定 % >
+    <%# turbo morphとpreserveの設定 %>
     <meta name="turbo-refresh-method" content="morph">
     <meta name="turbo-refresh-scroll" content="preserve"> <%# %>
     <%= csrf_meta_tags %>
@@ -27,9 +27,11 @@
     <%# "tailwind"とapplicationを合わせて表記↑ %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="<%= session[:theme] == 'dark' ? 'dark' : '' %>">
+  <div id="theme_container">
+    <main  class="min-h-screen bg-gray-100 dark:bg-gray-800 dark:text-gray-50">
       <%= yield %>
     </main>
+    </div>
   </body>
 </html>
