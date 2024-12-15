@@ -6,6 +6,11 @@
 ### Turbo Streams を使用して非同期でのCRUD処理を実装（create・update・delete）
 ### Action Job を使用してリアルタイム処理を実装（create・update・delete）
 ---
+
+# 12/16までの進捗
+## Hotwire関係
+### Turbo 8 の morph 機能を活用した新機能を追加(もう少し活かせる機能を追加したい)
+
 # 今後の予定
 ## Rails 8.0.0に関して
 ### 本番環境での Solid Cable の使用を設定
