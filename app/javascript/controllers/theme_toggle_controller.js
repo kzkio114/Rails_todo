@@ -1,12 +1,12 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="theme-toggle"
 export default class extends Controller {
-  static targets = ["button"];
+  static targets = ["button", "themeName"];
 
   connect() {
-    // テーマ切り替えボタンをクリックしたときの処理を設定
-    this.updateTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+    // ページ読み込み時に現在のテーマを表示
+    this.updateThemeDisplay(document.documentElement.getAttribute("data-theme") || "light");
   }
 
   toggleTheme() {
@@ -20,12 +20,19 @@ export default class extends Controller {
     })
       .then((response) => response.json())
       .then((data) => {
+        // サーバーから返されたテーマを反映
         this.updateTheme(data.theme);
+        this.updateThemeDisplay(data.theme);
       });
   }
 
   updateTheme(theme) {
     // HTMLタグのクラスを更新
-    document.documentElement.classList.toggle("dark", theme === "dark");
+    document.documentElement.setAttribute("data-theme", theme);
+  }
+
+  updateThemeDisplay(theme) {
+    // ボタンのテキストを更新
+    this.themeNameTarget.textContent = theme;
   }
 }

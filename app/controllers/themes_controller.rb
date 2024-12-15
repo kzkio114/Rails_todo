@@ -1,6 +1,8 @@
 class ThemesController < ApplicationController
   def toggle
-    session[:theme] = session[:theme] == "dark" ? "light" : "dark"
-    render json: { theme: session[:theme] }
+    current_theme = session[:theme] || "light"
+    next_theme = ThemeManager.next_theme(current_theme)
+    session[:theme] = next_theme
+    render json: { theme: next_theme }
   end
 end
