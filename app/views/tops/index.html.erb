@@ -2,6 +2,8 @@
   <%= link_to "タスク管理アプリ", root_path, data: { turbo_frame: "_top" },
     class: "text-4xl text-blue-600" %>
 
+  <%= render partial: "events/calendar" %> <!-- 追記カレンダー表示用 -->
+
   <%= link_to "タスク一覧を表示", tasks_path, data: { turbo_frame: "task_all" },
     class: "text-blue-500 hover:text-blue-700" %>
 

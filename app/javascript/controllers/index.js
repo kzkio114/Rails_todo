@@ -4,5 +4,14 @@
 
 import { application } from "./application"
 
+import CalendarController from "./calendar_controller"
+application.register("calendar", CalendarController)
+
+import HelloController from "./hello_controller"
+application.register("hello", HelloController)
+
+import TaskFormController from "./task_form_controller"
+application.register("task-form", TaskFormController)
+
 import ThemeToggleController from "./theme_toggle_controller"
 application.register("theme-toggle", ThemeToggleController)
