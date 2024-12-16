@@ -3,10 +3,8 @@
     <div class="flex justify-between items-center mb-4">
       <h3 class="font-semibold text-xl">タスク詳細</h3>
     </div>
-    <p><strong>タスク名:</strong> <%= task.name %></p>
-    <p><strong>詳細:</strong> <%= task.details %></p>
-    <p><strong>締切日:</strong> <%= task.due_date %></p>
-    <p><strong>完了:</strong> <%= task.completed ? "はい" : "いいえ" %></p>
+
+    <%= render partial: "tasks/preview", locals: { task: task } %>
 
     <%= turbo_frame_tag "task_edit" do %>
       <%= render partial: "tasks/edit_form", locals: { task: task } %>

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html class="dark">
+<html>
   <head>
     <title><%= content_for(:title) || "App" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <%# turbo morphとpreserveの設定 % >
+    <%# turbo morphとpreserveの設定 %>
     <meta name="turbo-refresh-method" content="morph">
     <meta name="turbo-refresh-scroll" content="preserve"> <%# %>
     <%= csrf_meta_tags %>
@@ -28,8 +28,15 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
+    <main class="container mx-auto flex flex-row-reverse">
+      <aside class="min-w-60 w-1/4 p-4">
+        <%= render partial: "layouts/thema" %>
+      </aside>
+
+      <!-- メインコンテンツ -->
+      <section class="flex-1 p-4">
+        <%= yield %>
+      </section>
     </main>
   </body>
 </html>
