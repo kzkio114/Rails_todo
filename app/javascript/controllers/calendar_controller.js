@@ -25,6 +25,17 @@ export default class extends Controller {
     this.calendar.addEvent(eventData); // 新しいイベントをカレンダーに追加
   }
 
+  updateEvent(eventData) {
+    const existingEvent = this.calendar.getEventById(eventData.id);
+    if (existingEvent) {
+      existingEvent.setProp("title", eventData.title);
+      existingEvent.setStart(eventData.start);
+      existingEvent.setEnd(eventData.end || null);
+    } else {
+      this.addEvent(eventData); // イベントが存在しない場合は追加
+    }
+  }
+
   refreshEvents() {
     fetch("/events.json") // JSONデータを取得
       .then(response => response.json())
