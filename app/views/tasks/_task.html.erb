@@ -9,7 +9,7 @@
       <%= link_to "詳細", task_path(task), data: { turbo_frame: "task_detail" },
           class: "text-blue-500 hover:text-blue-700 px-2 py-1 border border-blue-500 rounded" %>
       <%= button_to "削除", task, method: :delete,
-          data: { turbo_confirm: "削除してよろしいですか？", turbo_frame: "task_detail" },
+          data: { turbo_frame: "task_detail" },
           class: "text-red-500 hover:text-red-700 px-2 py-1 border border-red-500 rounded" %>
     <% else %>
       <p class="text-red-500">タスクが保存されていません。</p>
