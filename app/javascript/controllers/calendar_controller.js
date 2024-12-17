@@ -4,6 +4,7 @@ import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import jaLocale from '@fullcalendar/core/locales/ja'; // 日本語ロケールを追加
 
 // Connects to data-controller="calendar"
 export default class extends Controller {
@@ -15,6 +16,7 @@ export default class extends Controller {
       initialView: 'dayGridMonth',
       selectable: true,
       events: "/events.json", // サーバーからイベントを取得するエンドポイント
+      locale: jaLocale, // ここで日本語ロケールを設定
     });
     this.calendar.render();
   }
