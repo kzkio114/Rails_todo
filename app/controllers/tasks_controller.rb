@@ -15,7 +15,14 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      # redirect_to tasks_path # モーフィングで追加
+      render json: {
+        id: @task.id,
+        title: @task.name,
+        start: @task.due_date,
+        allDay: true
+      }, status: :created
+    else
+      render json: { errors: @task.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

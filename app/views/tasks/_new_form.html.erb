@@ -1,5 +1,5 @@
-<div id="task_form_new" data-controller="task-form" data-task-form-target="form">
-  <%= form_with model: Task.new, url: tasks_path, method: :post, data: { turbo_frame: "task_form_new" }, class: "space-y-4 bg-white p-6 rounded-lg shadow-md" do |form| %>
+<div id="task_form_new" data-controller="task-form" data-action="submit->task-form#submit">
+  <%= form_with model: Task.new, url: tasks_path, method: :post, data: { turbo_frame: "task_form_new", task_form_target: "form" }, class: "space-y-4 bg-white p-6 rounded-lg shadow-md" do |form| %>
     <%= render partial: "tasks/form_fields", locals: { form: form } %>
     <div class="text-right">
       <%= form.submit "保存", class: "px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" %>

@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
   resources :events, only: [:index], defaults: { format: :json }
-
-
-
   post 'toggle_theme', to: 'themes#toggle', as: :toggle_theme
 
   resources :tasks, only: [ :index, :edit, :show, :new, :create, :update, :destroy ]
+  post '/tasks', to: 'tasks#create', defaults: { format: :json }
   root "tops#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

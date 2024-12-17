@@ -9,7 +9,6 @@ class EventsController < ApplicationController
       }
     end
 
-    @events = tasks
-    render json: @events
+    render json: tasks
   end
 end
