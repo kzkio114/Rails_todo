@@ -5,25 +5,33 @@ export default class extends Controller {
 
   connect() {
     console.log("Task form controller connected");
+
+    // Turbo Stream後にカレンダーをリフレッシュする
+    if (!this.hasRefreshedCalendar) {
+      document.addEventListener("turbo:after-stream-render", () => {
+        this.refreshCalendar();
+      });
+      this.hasRefreshedCalendar = true; // イベントリスナーの重複を防ぐ
+    }
+
     this.calendarController = this.application.getControllerForElementAndIdentifier(
       document.querySelector("[data-controller='calendar']"),
       "calendar"
     );
+
+    if (!this.calendarController) {
+      console.warn("Calendar controller not found. Skipping calendar updates.");
+    }
   }
 
   submit(event) {
     event.preventDefault();
-
-    // フォームデータを取得して送信
     this.sendTaskData(this.formTarget.action, "POST");
   }
 
   update(event) {
     event.preventDefault();
-
-    // 更新用URLを取得して送信
-    const updateUrl = this.formTarget.action; // 編集フォームの場合
-    this.sendTaskData(updateUrl, "PUT");
+    this.sendTaskData(this.formTarget.action, "PATCH");
   }
 
   sendTaskData(url, method) {
@@ -44,19 +52,36 @@ export default class extends Controller {
       body: JSON.stringify({ task: taskData }),
     })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("タスクの処理中にエラーが発生しました");
+        const contentType = response.headers.get("Content-Type");
+
+        if (contentType.includes("text/vnd.turbo-stream.html")) {
+          // Turbo Streamレスポンスを処理
+          response.text().then((html) => Turbo.renderStreamMessage(html));
+        } else if (contentType.includes("application/json")) {
+          // JSONレスポンスの場合
+          return response.json();
+        } else {
+          throw new Error("不明なレスポンス形式です");
         }
-        return response.json();
       })
       .then((task) => {
+        if (!task) return; // Turbo Streamが処理されている場合はスキップ
+
+        // JSONレスポンスを処理してカレンダーを更新
         if (method === "POST") {
-          this.calendarController.addEvent(task); // 新規イベントを追加
-        } else if (method === "PUT") {
-          this.calendarController.updateEvent(task); // 更新処理を呼び出す
+          this.calendarController.addEvent(task);
+        } else if (method === "PATCH") {
+          this.calendarController.updateEvent(task);
         }
-        this.formTarget.reset(); // フォームをリセット
+
+        this.formTarget.reset();
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error("エラー:", error));
+  }
+
+  refreshCalendar() {
+    if (this.calendarController) {
+      this.calendarController.refreshEvents(); // カレンダーイベントの最新データを取得
+    }
   }
 }

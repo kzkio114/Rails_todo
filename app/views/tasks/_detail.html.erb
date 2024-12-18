@@ -1,4 +1,5 @@
 <%= turbo_frame_tag "task_detail" do %>
+<div id ="detail">
   <% if task.present? %>
     <div class="flex justify-between items-center mb-4">
       <h3 class="font-semibold text-xl">タスク詳細</h3>
@@ -12,4 +13,5 @@
   <% else %>
     <p>タスクが選択されていません。</p>
   <% end %>
+</div>
 <% end %>
