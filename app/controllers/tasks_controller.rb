@@ -33,22 +33,17 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      respond_to do |format|
-      
-      format.json do
-      render json: {
-      id: @task.id,
-      title: @task.name,
-      start: @task.due_date,
-      allDay: true
-    }, status: :ok
-    format.turbo_stream # Turbo Stream用のHTMLを返す
-  end
-end
-    else
-      render json: { errors: @task.errors.full_messages }, status: :unprocessable_entity
+    #   render json: {
+    #   id: @task.id,
+    #   title: @task.name,
+    #   start: @task.due_date,
+    #   allDay: true
+    # }, status: :ok
+    #end
+#     else
+#       render json: { errors: @task.errors.full_messages }, status: :unprocessable_entity
+      end
     end
-  end
 
   def destroy
     @task = Task.find(params[:id])
