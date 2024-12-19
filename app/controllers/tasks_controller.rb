@@ -33,17 +33,16 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-    #   render json: {
-    #   id: @task.id,
-    #   title: @task.name,
-    #   start: @task.due_date,
-    #   allDay: true
-    # }, status: :ok
-    #end
-#     else
-#       render json: { errors: @task.errors.full_messages }, status: :unprocessable_entity
-      end
+      render json: {
+      id: @task.id,
+      title: @task.name,
+      start: @task.due_date,
+      allDay: true
+    }, status: :ok
+    else
+      render json: { errors: @task.errors.full_messages }, status: :unprocessable_entity
     end
+  end
 
   def destroy
     @task = Task.find(params[:id])
