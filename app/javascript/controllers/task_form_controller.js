@@ -26,7 +26,7 @@ export default class extends Controller {
 
   submit(event) {
     event.preventDefault();
-    this.sendTaskData(this.formTarget.action, "POST");
+    this.sendTaskData('/api/v1/tasks', "POST");
   }
 
   update(event) {
