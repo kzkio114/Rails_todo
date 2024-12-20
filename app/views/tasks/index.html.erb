@@ -28,5 +28,15 @@
         <%= render partial: "tasks/task", locals: { task: task } %>
       <% end %>
     </div>
+    <!-- 追記 morph用 -->
+    <div class="flex-1 min-w-80">
+      <h2 class="font-semibold text-2xl text-gray-800 mt-6">プレビューエリア</h2>
+      <div class="p-5 border rounded bg-gray-50 mt-4">
+        <%= turbo_stream_from "task_preview" %>
+        <div id="task_preview">
+          <p>タスクのプレビューはここに表示されます。</p>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
