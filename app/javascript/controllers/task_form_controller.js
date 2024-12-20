@@ -28,18 +28,25 @@ export default class extends Controller {
     this.sendTaskData('/api/v1/tasks', "POST");
   }
 
-  update(event) {
+  async update(event) {
     event.preventDefault();
     const taskId = this.formTarget.dataset.taskId;
     const jsonUrl = `/api/v1/tasks/${taskId}`;
-    const turboStreamUrl = `/tasks/${taskId}`;
+    const turboStreamUrl = `/tasks/${taskId}/task_detail_update`;
 
-    this.sendTaskData(jsonUrl, "PATCH")
-      .then(() => {
-        // JSONリクエストが成功したらTurbo Streamリクエストを送信
-        return this.sendTurboStream(turboStreamUrl, "PATCH");
-      })
-      .catch((error) => console.error("JSONリクエストエラー:", error));
+    console.log("開始: 更新処理", { taskId, jsonUrl, turboStreamUrl });
+
+    try {
+      // JSONリクエストを送信
+      const data = await this.sendTaskData(jsonUrl, "PATCH");
+      console.log("成功: JSONリクエスト", data);
+
+      // Turbo Streamリクエストを送信
+      await this.sendTurboStream(turboStreamUrl, "PATCH");
+      console.log("成功: Turbo Streamリクエスト");
+    } catch (error) {
+      console.error("エラー: リクエスト処理中に問題発生", error);
+    }
   }
 
   async sendTaskData(url, method) {
@@ -51,7 +58,10 @@ export default class extends Controller {
       completed: formData["task[completed]"],
     };
 
+    console.log("送信するJSONデータ", { task: taskData });
+
     try {
+      console.log("送信中: JSONリクエスト", url);
       const response = await fetch(url, {
         method: method,
         headers: {
@@ -61,27 +71,30 @@ export default class extends Controller {
         body: JSON.stringify({ task: taskData }),
       });
 
-      const contentType = response.headers.get("Content-Type");
-      if (contentType.includes("application/json")) {
-        const data = await response.json();
-        if (method === "POST") {
-          this.calendarController.addEvent(data);
-        } else if (method === "PATCH") {
-          this.calendarController.updateEvent(data);
-        }
-        this.formTarget.reset();
-        return data; // 成功したデータを返す
-      } else {
-        throw new Error("不明なレスポンス形式です");
+      if (!response.ok) {
+        throw new Error(`HTTPエラー! ステータス: ${response.status}`);
       }
+
+      const data = await response.json();
+      console.log("受信: JSONレスポンス", data);
+
+      if (method === "POST") {
+        this.calendarController?.addEvent(data);
+      } else if (method === "PATCH") {
+        this.calendarController?.updateEvent(data);
+      }
+
+      this.formTarget.reset();
+      return data;
     } catch (error) {
-      console.error("JSONリクエストエラー:", error);
+      console.error("エラー: JSONリクエスト処理中に問題発生", error);
       throw error;
     }
   }
 
   async sendTurboStream(url, method) {
     try {
+      console.log("送信中: Turbo Streamリクエスト", url);
       const response = await fetch(url, {
         method: method,
         headers: {
@@ -90,20 +103,21 @@ export default class extends Controller {
         },
       });
 
-      if (response.ok) {
-        const html = await response.text();
-        Turbo.renderStreamMessage(html);
-      } else {
-        console.error("Turbo Streamリクエストが失敗しました");
+      if (!response.ok) {
+        throw new Error(`HTTPエラー! ステータス: ${response.status}`);
       }
+
+      const html = await response.text();
+      console.log("受信: Turbo Streamレスポンス", html);
+      Turbo.renderStreamMessage(html);
     } catch (error) {
-      console.error("Turbo Streamエラー:", error);
+      console.error("エラー: Turbo Streamリクエスト処理中に問題発生", error);
+      throw error;
     }
   }
 
   refreshCalendar() {
-    if (this.calendarController) {
-      this.calendarController.refreshEvents();
-    }
+    console.log("カレンダーのイベントを更新中");
+    this.calendarController?.refreshEvents();
   }
 }
