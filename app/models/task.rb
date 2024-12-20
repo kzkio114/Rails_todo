@@ -9,4 +9,13 @@ class Task < ApplicationRecord
       locals: { task: self }
     )
   }
+
+  after_update_commit -> {
+    broadcast_morph_to(
+      "task_preview",
+      target: "task_preview",
+      partial: "tasks/preview",
+      locals: { task: self }
+    )
+  }
 end
