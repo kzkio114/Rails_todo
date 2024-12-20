@@ -1,5 +1,5 @@
 <div id="task_form_edit" data-controller="task-form" data-action="submit->task-form#update">
-  <%= form_with model: task, url: task_path(task), method: :patch, data: { turbo_stream: "task_form_edit", task_form_target: "form" }, class: "space-y-4 bg-white p-6 rounded-lg shadow-md" do |form| %>
+  <%= form_with model: @task, url: task_path(@task), method: :patch, data: { turbo: false, task_form_target: "form", task_id: @task.id }, class: "space-y-4 bg-white p-6 rounded-lg shadow-md" do |form| %>
     <%= render partial: "tasks/form_fields", locals: { form: form } %>
     <div class="text-right">
       <%= form.submit "更新", class: "px-4 py-2 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2" %>

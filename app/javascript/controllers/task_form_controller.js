@@ -6,12 +6,11 @@ export default class extends Controller {
   connect() {
     console.log("Task form controller connected");
 
-    // Turbo Stream後にカレンダーをリフレッシュする
     if (!this.hasRefreshedCalendar) {
       document.addEventListener("turbo:after-stream-render", () => {
         this.refreshCalendar();
       });
-      this.hasRefreshedCalendar = true; // イベントリスナーの重複を防ぐ
+      this.hasRefreshedCalendar = true;
     }
 
     this.calendarController = this.application.getControllerForElementAndIdentifier(
@@ -31,10 +30,19 @@ export default class extends Controller {
 
   update(event) {
     event.preventDefault();
-    this.sendTaskData(this.formTarget.action, "PATCH");
+    const taskId = this.formTarget.dataset.taskId;
+    const jsonUrl = `/api/v1/tasks/${taskId}`;
+    const turboStreamUrl = `/tasks/${taskId}`;
+
+    this.sendTaskData(jsonUrl, "PATCH")
+      .then(() => {
+        // JSONリクエストが成功したらTurbo Streamリクエストを送信
+        return this.sendTurboStream(turboStreamUrl, "PATCH");
+      })
+      .catch((error) => console.error("JSONリクエストエラー:", error));
   }
 
-  sendTaskData(url, method) {
+  async sendTaskData(url, method) {
     const formData = Object.fromEntries(new FormData(this.formTarget));
     const taskData = {
       name: formData["task[name]"],
@@ -43,45 +51,59 @@ export default class extends Controller {
       completed: formData["task[completed]"],
     };
 
-    fetch(url, {
-      method: method,
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
-      },
-      body: JSON.stringify({ task: taskData }),
-    })
-      .then((response) => {
-        const contentType = response.headers.get("Content-Type");
+    try {
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+        },
+        body: JSON.stringify({ task: taskData }),
+      });
 
-        if (contentType.includes("text/vnd.turbo-stream.html")) {
-          // Turbo Streamレスポンスを処理
-          response.text().then((html) => Turbo.renderStreamMessage(html));
-        } else if (contentType.includes("application/json")) {
-          // JSONレスポンスの場合
-          return response.json();
-        } else {
-          throw new Error("不明なレスポンス形式です");
-        }
-      })
-      .then((task) => {
-        if (!task) return; // Turbo Streamが処理されている場合はスキップ
-
-        // JSONレスポンスを処理してカレンダーを更新
+      const contentType = response.headers.get("Content-Type");
+      if (contentType.includes("application/json")) {
+        const data = await response.json();
         if (method === "POST") {
-          this.calendarController.addEvent(task);
+          this.calendarController.addEvent(data);
         } else if (method === "PATCH") {
-          this.calendarController.updateEvent(task);
+          this.calendarController.updateEvent(data);
         }
-
         this.formTarget.reset();
-      })
-      .catch((error) => console.error("エラー:", error));
+        return data; // 成功したデータを返す
+      } else {
+        throw new Error("不明なレスポンス形式です");
+      }
+    } catch (error) {
+      console.error("JSONリクエストエラー:", error);
+      throw error;
+    }
+  }
+
+  async sendTurboStream(url, method) {
+    try {
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          "Accept": "text/vnd.turbo-stream.html",
+          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+        },
+      });
+
+      if (response.ok) {
+        const html = await response.text();
+        Turbo.renderStreamMessage(html);
+      } else {
+        console.error("Turbo Streamリクエストが失敗しました");
+      }
+    } catch (error) {
+      console.error("Turbo Streamエラー:", error);
+    }
   }
 
   refreshCalendar() {
     if (this.calendarController) {
-      this.calendarController.refreshEvents(); // カレンダーイベントの最新データを取得
+      this.calendarController.refreshEvents();
     }
   }
 }
