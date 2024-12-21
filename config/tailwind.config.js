@@ -53,6 +53,6 @@ module.exports = {
       "dim",
       "nord",
       "sunset",
-    ], // DaisyUIのテーマリスト
+    ], // DaisyUIのテーマリスト　これを使ってテーマを変更できる　現在全部のテーマを使っている？と思う！
   },
 }
