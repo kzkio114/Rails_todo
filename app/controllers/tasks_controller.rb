@@ -15,7 +15,6 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      # redirect_to tasks_path # モーフィングで追加
     end
   end
 
@@ -29,9 +28,15 @@ class TasksController < ApplicationController
     end
   end
 
+  def task_detail_update
+    @task = Task.find(params[:id])
+  end
+
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
+
+    render json: { id: @task.id, message: "タスクが削除されました" }, status: :ok
   end
 
   private
