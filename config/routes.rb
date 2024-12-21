@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   #resources :events, only: [:index], defaults: { format: :json }
-  post 'toggle_theme', to: 'themes#toggle', as: :toggle_theme
+  post 'toggle_theme', to: 'themes#toggle', as: :toggle_theme #テーマ切り替え
   namespace :api do
     namespace :v1 do
       defaults format: :json do
