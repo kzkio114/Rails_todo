@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 
+// ここでテーマ切り替えのコントローラーを作成
 // Connects to data-controller="theme-toggle"
 export default class extends Controller {
   static targets = ["button", "themeName"];
