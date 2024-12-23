@@ -31,8 +31,8 @@ export default class extends Controller {
   async update(event) {
     event.preventDefault();
     const taskId = this.formTarget.dataset.taskId;
-    const jsonUrl = `/api/v1/tasks/${taskId}`;
     const turboStreamUrl = `/tasks/${taskId}/task_detail_update`;
+    const jsonUrl = `/api/v1/tasks/${taskId}`;
 
     console.log("開始: 更新処理", { taskId, jsonUrl, turboStreamUrl });
 
