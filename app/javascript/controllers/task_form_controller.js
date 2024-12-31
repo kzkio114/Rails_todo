@@ -51,6 +51,11 @@ export default class extends Controller {
 
   async delete(event) {
     event.preventDefault();
+    const confirmed = window.confirm("削除してよろしいですか？");
+    if (!confirmed) {
+      return; // ユーザーがキャンセルした場合は処理を中断
+    }
+
     const taskId = event.target.closest("button").dataset.taskId; // 削除するタスクのIDを取得
     const deleteUrl = `/api/v1/tasks/${taskId}`;
   
