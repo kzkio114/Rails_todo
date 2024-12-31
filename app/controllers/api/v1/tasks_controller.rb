@@ -30,6 +30,20 @@ class Api::V1::TasksController < ApplicationController
     end
   end
 
+  def destroy
+    @task = Task.find(params[:id])
+    if @task.destroy
+      render json: {
+        id: @task.id,
+        title: @task.name,
+        start: @task.due_date,
+        allDay: true
+      }, status: :ok
+    else
+        render json: { errors: @task.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def task_params

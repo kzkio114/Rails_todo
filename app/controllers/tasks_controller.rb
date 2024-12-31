@@ -35,8 +35,6 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-
-    render json: { id: @task.id, message: "タスクが削除されました" }, status: :ok
   end
 
   private

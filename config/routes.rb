@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       defaults format: :json do
-        resources :tasks, only: [:create, :update]
+        resources :tasks, only: [:create, :update, :destroy]
         resources :events, only: [:index]
       end
     end
