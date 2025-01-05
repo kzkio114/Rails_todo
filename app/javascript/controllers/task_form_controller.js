@@ -31,8 +31,8 @@ export default class extends Controller {
   async update(event) {
     event.preventDefault();
     const taskId = this.formTarget.dataset.taskId;
-    const jsonUrl = `/api/v1/tasks/${taskId}`;
     const turboStreamUrl = `/tasks/${taskId}/task_detail_update`;
+    const jsonUrl = `/api/v1/tasks/${taskId}`;
 
     console.log("開始: 更新処理", { taskId, jsonUrl, turboStreamUrl });
 
@@ -48,6 +48,58 @@ export default class extends Controller {
       console.error("エラー: リクエスト処理中に問題発生", error);
     }
   }
+
+  async delete(event) {
+    event.preventDefault();
+    const confirmed = window.confirm("削除してよろしいですか？");
+    if (!confirmed) {
+      return; // ユーザーがキャンセルした場合は処理を中断
+    }
+
+    const taskId = event.target.closest("button").dataset.taskId; // 削除するタスクのIDを取得
+    const deleteUrl = `/api/v1/tasks/${taskId}`;
+  
+    console.log("開始: 削除処理", { taskId, deleteUrl });
+  
+    try {
+      const response = await fetch(deleteUrl, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTPエラー! ステータス: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log("削除成功:", data);
+  
+      // カレンダーからイベントを削除
+      this.removeEventFromCalendar(taskId);
+  
+      // HTMLからタスクを削除
+      const taskElement = document.getElementById(`task_${taskId}`);
+      if (taskElement) {
+        taskElement.remove();
+      }
+    } catch (error) {
+      console.error("削除中にエラーが発生:", error);
+    }
+  }
+  
+  removeEventFromCalendar(taskId) {
+    const event = this.calendarController?.calendar.getEventById(taskId);
+    if (event) {
+      event.remove();
+      console.log(`カレンダーからイベント削除: ${taskId}`);
+    } else {
+      console.warn(`イベントが見つかりません: ${taskId}`);
+    }
+  }
+  
 
   async sendTaskData(url, method) {
     const formData = Object.fromEntries(new FormData(this.formTarget));
